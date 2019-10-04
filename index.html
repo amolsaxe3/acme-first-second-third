@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <style>
+            body{
+                flex-direction: column;
+               align-content: center;
+               display:flex;
+               align-items: center;
+             }
+            h1{
+                align-content: center;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+                font-weight: bold;
+            }
+            #lists {
+                flex-direction: row;
+                display: flex;
+                align-items: space-between;
+            }
+            .box {
+                border: orangered solid 1px;
+                height: 500px;
+                width: 300px;
+                margin: 25px;
+                padding: 1em;
+            }
+            ul{
+                list-style-type: none;
+                padding: 0px;
+            }
+
+            li{
+
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 20px;
+                background-color: whitesmoke;
+                margin: 2px;
+                height: 12%;
+                width: 89%;
+                padding: 10px;
+            }
+
+            button {
+                background-color: whitesmoke;
+                width: 96%;
+                height: 15%;
+                font-size: 20px;
+                font-weight: lighter;
+            }
+            p{
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            </style>
+    </head>
+    <body>
+        <h1>Acme First, Second, Third</h1>
+        <div id= 'lists'>
+            <div class = 'box' id= 'first'>
+                <button id='moveLeft'><</button>
+                <button id='moveRight'>></button>
+                <p>FIRST</p>
+                <ul id='firstSlots'></ul>
+            </div>
+            <div class = 'box' id= 'second'>
+                <button id='moveLeft'><</button>
+                <button id='moveRight'>></button>
+                <p>SECOND</p>
+                <ul id='secondSlots'></ul>
+            </div>
+            <div class = 'box' id= 'third'>
+                <button id='moveLeft'><</button>
+                <button id='moveRight'>></button>
+                <p>THIRD</p>
+                <ul id='thirdSlots'></ul>
+            </div>
+        </div>
+    </body>
+    <script>
+        const slots = ['first', 'second', 'third'];
+        const users = [
+            { id: 1, name: 'moe', slot: 'first'},
+            { id: 2, name: 'larry', slot: 'second'},
+            { id: 3, name: 'curly', slot: 'third'},
+            { id: 4, name: 'lucy', slot: 'third', selcected: true},
+        ];
+        //helper function determines which slot each person belongs, returns an array 
+        function popUsers (users){
+        const usersToPopulate= users.reduce( (acc, current) => {
+            if (current.slot === 'first'){
+                acc[0].push(`<li>${current.name}</li>`)
+            }
+            if (current.slot === 'second'){
+                acc[1].push(`<li>${current.name}</li>`)
+            }
+            if (current.slot === 'third'){
+                acc[2].push(`<li>${current.name}</li>`)
+            }
+           return acc
+        }, [[],[],[]])
+        
+        // displays each person in the correct slot
+        firstSlots.innerHTML=usersToPopulate[0].join("");
+        secondSlots.innerHTML=usersToPopulate[1].join("");
+        thirdSlots.innerHTML=usersToPopulate[2].join("");
+    };
+        // function invocation
+        popUsers(users);
+        // grab button
+        const buttons = document.querySelectorAll('#moveLeft, #moveRight');
+        console.log(buttons);
+        buttons.addEventListener('click', ()=>{
+        console.log('buttonclicked')
+        });
+    </script>
+</html>

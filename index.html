@@ -28,9 +28,7 @@
                 list-style-type: none;
                 padding: 0px;
             }
-
             li{
-
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
                 font-size: 20px;
                 background-color: whitesmoke;
@@ -39,7 +37,6 @@
                 width: 89%;
                 padding: 18px 0 20px 20px;
             }
-
             button {
                 width: 96%;
                 height: 15%;
@@ -86,11 +83,11 @@
     </body>
     <script>
         const slots = ['first', 'second', 'third'];
-        const users = [
-            { id: 1, name: 'moe', slot: 'first'},
-            { id: 2, name: 'larry', slot: 'second'},
-            { id: 3, name: 'curly', slot: 'second'},
-            { id: 4, name: 'lucy', slot: 'third', selcected: true},
+        let users = [
+            { id: '1', name: 'moe', slot: 'first', },
+            { id: '2', name: 'larry', slot: 'second', },
+            { id: '3', name: 'curly', slot: 'second', },
+            { id: '4', name: 'lucy', slot: 'third', },
         ];
         //helper function determines which slot each person belongs, returns an array 
         
@@ -101,13 +98,16 @@
         function popUsers (users){
         const usersToPopulate= users.reduce( (acc, current) => {
             if (current.slot === 'first'){
-                acc[0].push(`<li>${current.name}</li>`)
+                if(current.selected) {acc[0].push(`<li style="background-color:tomato" id='${current.id}'>${current.name}</li>`)} else {
+                acc[0].push(`<li id='${current.id}'>${current.name}</li>`)}
             }
             if (current.slot === 'second'){
-                acc[1].push(`<li>${current.name}</li>`)
+                if(current.selected) {acc[1].push(`<li style="background-color:tomato"  id='${current.id}'>${current.name}</li>`)} else {
+                acc[1].push(`<li id='${current.id}'>${current.name}</li>`)}
             }
             if (current.slot === 'third'){
-                acc[2].push(`<li>${current.name}</li>`)
+                if(current.selected) {acc[2].push(`<li style="background-color:tomato"  id='${current.id}'>${current.name}</li>`)} else {
+                acc[2].push(`<li id='${current.id}'>${current.name}</li>`)}
             }
            return acc
         }, [[],[],[]])
@@ -122,30 +122,50 @@
         const firstSlotsList = document.querySelector('#firstSlots');       
         const secondSlotsList = document.querySelector('#secondSlots');
         const thirdSlotsList = document.querySelector('#thirdSlots');
-
         firstSlotsList.addEventListener('click', (ev)=> {
             const listItem = ev.target;
             console.log('listItem.value---->',listItem.value);
             const idx = [...firstSlotsList.children].indexOf(listItem);
-
+            let idRetrieved = listItem.getAttribute('id');
             if(listItem.value === 0){
             listItem.setAttribute("style", "background-color: tomato;");
-            listItem.setAttribute("value", "1");
+            listItem.setAttribute("value", "1");// make it selected
+            //Update users object specific user selected
+            console.log('idRetrieved--->', idRetrieved)
+            users =users.map(user => {
+                console.log('user.id-->',user.id)
+            
+                if(user.id === idRetrieved) {
+                    console.log('inside condition user id/idretrieved')
+                    user.selected = true;
+                    console.log ('user inside if ===>',user)
+                }
+                return user;
+            })
             } else {
             listItem.setAttribute("style", "background-color: whitesmoke;");
             listItem.setAttribute("value", "0");
+            users = users.map(user=>{
+                if(user.id === idRetrieved) {
+                     user.selected = false;
+                }
+                return user;
+                });
             }
-            console.log('firstSlotsList.children',firstSlotsList.children)
-            console.log('listItem', listItem);
-            console.log('idx', idx);
+            // console.log('firstSlotsList.children',firstSlotsList.children)
+            // console.log('listItem', listItem);
+            // console.log('idx', idx);
+
+            // popUsers(users);
+
+             console.log('users inside li---->',users);
 
     });
-
     secondSlotsList.addEventListener('click', (ev)=> {
             const listItem = ev.target;
+            console.log('listItem---->',listItem);
             console.log('listItem.value---->',listItem.value);
             const idx = [...secondSlotsList.children].indexOf(listItem);
-
             if(listItem.value === 0){
             listItem.setAttribute("style", "background-color: tomato;");
             listItem.setAttribute("value", "1");
@@ -156,14 +176,11 @@
             console.log('secondSlotsList.children',secondSlotsList.children)
             console.log('listItem', listItem);
             console.log('idx', idx);
-
     });
-
         thirdSlotsList.addEventListener('click', (ev)=> {
             const listItem = ev.target;
             console.log('listItem.value---->',listItem.value);
             const idx = [...thirdSlotsList.children].indexOf(listItem);
-
             if(listItem.value === 0){
             listItem.setAttribute("style", "background-color: tomato;");
             listItem.setAttribute("value", "1");
@@ -174,7 +191,21 @@
             console.log('thirdSlotsList.children',thirdSlotsList.children)
             console.log('listItem', listItem);
             console.log('idx', idx);
-
     });
+
+    const mvRight1Btn = document.querySelector('#moveRight1');  
+    mvRight1Btn.addEventListener('click', (ev) => {
+
+        users = users.map (user => {
+            if (user.slot === 'first' && user.selected=== true)
+            {user.slot = 'second'}
+
+            return user;
+        })
+        console.log ('users before popUsers call--->',users)
+        popUsers(users);
+        console.log ('users after popUsers call--->',users)
+
+    })
     </script>
 </html>

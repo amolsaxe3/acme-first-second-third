@@ -97,13 +97,13 @@
         function popUsers (users){
         const usersToPopulate= users.reduce( (acc, current) => {
             if (current.slot === 'first'){
-                acc[0].push(`<li value='false'>${current.name}</li>`)
+                acc[0].push(`<li>${current.name}</li>`)
             }
             if (current.slot === 'second'){
-                acc[1].push(`<li value='false'>${current.name}</li>`)
+                acc[1].push(`<li>${current.name}</li>`)
             }
             if (current.slot === 'third'){
-                acc[2].push(`<li value='false'>${current.name}</li>`)
+                acc[2].push(`<li>${current.name}</li>`)
             }
            return acc
         }, [[],[],[]])

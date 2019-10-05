@@ -115,8 +115,29 @@
     };
         // function invocation
         popUsers(users);
+        const firstSlotsList = document.querySelector('#firstSlots');       
         const secondSlotsList = document.querySelector('#secondSlots');
-        secondSlotsList.addEventListener('click', (ev)=> {
+        const thirdSlotsList = document.querySelector('#thirdSlots');
+
+        firstSlotsList.addEventListener('click', (ev)=> {
+            const listItem = ev.target;
+            console.log('listItem.value---->',listItem.value);
+            const idx = [...firstSlotsList.children].indexOf(listItem);
+
+            if(listItem.value === 0){
+            listItem.setAttribute("style", "background-color: orangered;");
+            listItem.setAttribute("value", "1");
+            } else {
+            listItem.setAttribute("style", "background-color: whitesmoke;");
+            listItem.setAttribute("value", "0");
+            }
+            console.log('firstSlotsList.children',firstSlotsList.children)
+            console.log('listItem', listItem);
+            console.log('idx', idx);
+
+    });
+
+    secondSlotsList.addEventListener('click', (ev)=> {
             const listItem = ev.target;
             console.log('listItem.value---->',listItem.value);
             const idx = [...secondSlotsList.children].indexOf(listItem);
@@ -129,6 +150,24 @@
             listItem.setAttribute("value", "0");
             }
             console.log('secondSlotsList.children',secondSlotsList.children)
+            console.log('listItem', listItem);
+            console.log('idx', idx);
+
+    });
+
+        thirdSlotsList.addEventListener('click', (ev)=> {
+            const listItem = ev.target;
+            console.log('listItem.value---->',listItem.value);
+            const idx = [...thirdSlotsList.children].indexOf(listItem);
+
+            if(listItem.value === 0){
+            listItem.setAttribute("style", "background-color: orangered;");
+            listItem.setAttribute("value", "1");
+            } else {
+            listItem.setAttribute("style", "background-color: whitesmoke;");
+            listItem.setAttribute("value", "0");
+            }
+            console.log('thirdSlotsList.children',thirdSlotsList.children)
             console.log('listItem', listItem);
             console.log('idx', idx);
 

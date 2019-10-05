@@ -52,26 +52,29 @@
                 font-weight: bold;
                 font-size: 20px;
             }
+            .active {
+                background-color: orangered;
+            }
             </style>
     </head>
     <body>
         <h1>Acme First, Second, Third</h1>
         <div id= 'lists'>
             <div class = 'box' id= 'first'>
-                <button id='moveLeft'><</button>
-                <button id='moveRight'>></button>
+                <button id='moveLeft1'><</button>
+                <button id='moveRight1'>></button>
                 <p>FIRST</p>
                 <ul id='firstSlots'></ul>
             </div>
             <div class = 'box' id= 'second'>
-                <button id='moveLeft'><</button>
-                <button id='moveRight'>></button>
+                <button id='moveLeft2'><</button>
+                <button id='moveRight2'>></button>
                 <p>SECOND</p>
                 <ul id='secondSlots'></ul>
             </div>
             <div class = 'box' id= 'third'>
-                <button id='moveLeft'><</button>
-                <button id='moveRight'>></button>
+                <button id='moveLeft3'><</button>
+                <button id='moveRigh3t'>></button>
                 <p>THIRD</p>
                 <ul id='thirdSlots'></ul>
             </div>
@@ -82,20 +85,25 @@
         const users = [
             { id: 1, name: 'moe', slot: 'first'},
             { id: 2, name: 'larry', slot: 'second'},
-            { id: 3, name: 'curly', slot: 'third'},
+            { id: 3, name: 'curly', slot: 'second'},
             { id: 4, name: 'lucy', slot: 'third', selcected: true},
         ];
         //helper function determines which slot each person belongs, returns an array 
+        
+        const list1 = document.querySelector('#firstSlots');
+        const list2 = document.querySelector('#secondSlots');
+        const list3 = document.querySelector('#thirdSlots');
+        
         function popUsers (users){
         const usersToPopulate= users.reduce( (acc, current) => {
             if (current.slot === 'first'){
-                acc[0].push(`<li>${current.name}</li>`)
+                acc[0].push(`<li value='false'>${current.name}</li>`)
             }
             if (current.slot === 'second'){
-                acc[1].push(`<li>${current.name}</li>`)
+                acc[1].push(`<li value='false'>${current.name}</li>`)
             }
             if (current.slot === 'third'){
-                acc[2].push(`<li>${current.name}</li>`)
+                acc[2].push(`<li value='false'>${current.name}</li>`)
             }
            return acc
         }, [[],[],[]])
@@ -107,11 +115,24 @@
     };
         // function invocation
         popUsers(users);
-        // grab button
-        const buttons = document.querySelectorAll('#moveLeft, #moveRight');
-        console.log(buttons);
-        buttons.addEventListener('click', ()=>{
-        console.log('buttonclicked')
-        });
+        const secondSlotsList = document.querySelector('#secondSlots');
+        let lightOn = false;
+        secondSlotsList.addEventListener('click', (ev)=> {
+            const listItem = ev.target;
+            const idx = [...secondSlotsList.children].indexOf(listItem);
+            if(!lightOn){
+            listItem.setAttribute("style", "background-color: orangered;");
+
+            lightOn = true;
+            } else {
+            listItem.setAttribute("style", "background-color: whitesmoke;");
+  
+            lightOn = false;
+            }
+            console.log('secondSlotsList.children',secondSlotsList.children)
+            console.log('listItem', listItem);
+            console.log('idx', idx);
+
+    });
     </script>
 </html>

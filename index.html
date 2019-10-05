@@ -116,18 +116,17 @@
         // function invocation
         popUsers(users);
         const secondSlotsList = document.querySelector('#secondSlots');
-        let lightOn = false;
         secondSlotsList.addEventListener('click', (ev)=> {
             const listItem = ev.target;
+            console.log('listItem.value---->',listItem.value);
             const idx = [...secondSlotsList.children].indexOf(listItem);
-            if(!lightOn){
+
+            if(listItem.value === 0){
             listItem.setAttribute("style", "background-color: orangered;");
-            listItem.setAttribute("value", "true");
-            lightOn = true;
+            listItem.setAttribute("value", "1");
             } else {
             listItem.setAttribute("style", "background-color: whitesmoke;");
-            listItem.setAttribute("value", "true");
-            lightOn = false;
+            listItem.setAttribute("value", "0");
             }
             console.log('secondSlotsList.children',secondSlotsList.children)
             console.log('listItem', listItem);

@@ -122,11 +122,11 @@
             const idx = [...secondSlotsList.children].indexOf(listItem);
             if(!lightOn){
             listItem.setAttribute("style", "background-color: orangered;");
-
+            listItem.setAttribute("value", "true");
             lightOn = true;
             } else {
             listItem.setAttribute("style", "background-color: whitesmoke;");
-  
+            listItem.setAttribute("value", "true");
             lightOn = false;
             }
             console.log('secondSlotsList.children',secondSlotsList.children)
